@@ -1,0 +1,440 @@
+/* CSS样式部分 - 控制页面的外观和布局 */
+
+/* 通用样式重置 - 移除浏览器默认的边距和内边距 */
+* {
+  margin: 0;
+  /* 外边距为0 */
+  padding: 0;
+  /* 内边距为0 */
+  box-sizing: border-box;
+  /* 盒模型包含边框和内边距 */
+  font-family: 'Times New Roman', 'Source Han Serif SC';
+}
+
+/* 页面主体样式 */
+body {
+  /* 渐变背景，从蓝色到紫色的135度对角线渐变 */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* 最小高度为视口高度，确保背景覆盖整个屏幕 */
+  min-height: 100vh;
+
+  /* 文字颜色 */
+  color: #333;
+}
+
+/* 主容器样式 */
+.container {
+  max-width: 1200px;
+  /* 最大宽度限制 */
+  margin: 0 auto;
+  /* 水平居中 */
+  padding: 20px;
+  /* 内边距 */
+}
+
+/* 页面头部样式 */
+.header {
+  text-align: center;
+  /* 文字居中 */
+  margin-bottom: 40px;
+  /* 底部外边距 */
+  color: white;
+  /* 白色文字 */
+}
+
+/* 主标题样式 */
+.header h1 {
+  font-size: 2.5rem;
+  /* 字体大小 */
+  margin-top: 20px;
+  /* 顶部外边距 */
+  margin-bottom: 10px;
+  /* 底部外边距 */
+  /* 文字阴影效果，让标题更突出 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 副标题样式 */
+.header p {
+  font-size: 1.1rem;
+  /* 字体大小 */
+  opacity: 0.9;
+  /* 透明度，让文字稍微透明 */
+}
+
+/* 搜索栏样式 */
+.search-bar {
+  background: white;
+  /* 白色背景 */
+  border-radius: 50px;
+  /* 圆角边框，创建药丸形状 */
+  padding: 15px 25px;
+  /* 内边距 */
+  margin-bottom: 15px;
+  /* 底部外边距 */
+  /* 阴影效果，让搜索栏有立体感 */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  /* 弹性布局，让搜索图标和输入框水平排列 */
+  display: flex;
+  align-items: center;
+  /* 垂直居中对齐 */
+  gap: 15px;
+  /* 元素间距 */
+  width: 600px;
+  max-width: 90%;
+  margin: auto;
+  transition: all 0.3s ease;
+}
+
+.search-bar.expanded {
+  width: 800px;
+  max-width: 90%;
+}
+
+/* 搜索输入框样式 */
+.search-bar input {
+  border: none;
+  /* 移除边框 */
+  outline: none;
+  /* 移除聚焦时的轮廓 */
+  font-size: 1rem;
+  /* 字体大小 */
+  flex: 1;
+  /* 占据剩余空间 */
+  background: transparent;
+  /* 透明背景 */
+}
+
+/* 搜索框占位符文字样式 */
+.search-bar input::placeholder {
+  color: #999;
+  /* 灰色占位符 */
+}
+
+/* 搜索图标样式 */
+.search-icon {
+  color: #667eea;
+  /* 蓝色图标 */
+  font-size: 1.2rem;
+  /* 图标大小 */
+}
+
+/* 筛选标签容器样式 */
+.filter-tabs {
+  display: flex;
+  /* 弹性布局 */
+  gap: 10px;
+  /* 标签间距 */
+  margin-bottom: 30px;
+  /* 底部外边距 */
+  flex-wrap: wrap;
+  /* 允许换行 */
+  justify-content: center;
+  /* 水平居中 */
+}
+
+/* 筛选标签样式 */
+.filter-tab {
+  /* 半透明白色背景 */
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  /* 白色文字 */
+  border: none;
+  /* 移除边框 */
+  padding: 12px 24px;
+  /* 内边距 */
+  border-radius: 25px;
+  /* 圆角 */
+  cursor: pointer;
+  /* 鼠标悬停时显示手型 */
+  /* 过渡动画，让状态变化更平滑 */
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  /* 字体大小 */
+  /* 背景模糊效果 */
+  backdrop-filter: blur(10px);
+}
+
+/* 筛选标签悬停和激活状态样式 */
+.filter-tab:hover,
+.filter-tab.active {
+  background: white;
+  /* 白色背景 */
+  color: #667eea;
+  /* 蓝色文字 */
+  transform: translateY(-2px);
+  /* 向上移动2px */
+  /* 更明显的阴影效果 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 排序控制按钮样式 */
+.sort-controls {
+  padding: 10px;
+  display: flex;
+  margin-bottom: 10px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.sort-title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.sort-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 5px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.sort-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.sort-btn:active {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.sort-btn.active {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+
+/* 收藏网站网格布局 */
+.bookmarks-grid {
+  /* 网格布局，自动填充，每列最小350px */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  /* 网格间距 */
+  margin-bottom: 40px;
+  /* 底部外边距 */
+}
+
+/* 收藏卡片样式 */
+.bookmark-card {
+  background: white;
+  /* 白色背景 */
+  border-radius: 15px;
+  /* 圆角 */
+  padding: 25px;
+  /* 内边距 */
+  /* 阴影效果 */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  /* 过渡动画 */
+  transition: all 0.3s ease;
+  position: relative;
+  /* 相对定位，用于伪元素 */
+  overflow: hidden;
+  /* 隐藏溢出内容 */
+  display: flex;
+  flex-direction: column;
+  height: 280px;
+  /* 固定高度 */
+}
+
+/*卡片悬停效果*/
+.bookmark-card:hover {
+  transform: translateY(-5px);
+  /* 向上移动5px */
+  /* 更强烈的阴影效果 */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 排序动画状态 */
+.bookmark-card.sorting-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.bookmark-card.sorting-enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 网站图标样式 */
+.bookmark-favicon {
+  width: 48px;
+  /* 宽度 */
+  height: 48px;
+  /* 高度 */
+  border-radius: 10px;
+  /* 圆角 */
+  /* 渐变背景 */
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  /* 弹性布局，用于居中显示文字 */
+  display: flex;
+  align-items: center;
+  /* 垂直居中 */
+  justify-content: center;
+  /* 水平居中 */
+  color: white;
+  /* 白色文字 */
+  font-size: 1.5rem;
+  /* 字体大小 */
+  font-weight: bold;
+  /* 粗体 */
+  margin-bottom: 15px;
+  /* 底部外边距 */
+}
+
+/* 网站标题样式 */
+.bookmark-title {
+  font-size: 1.3rem;
+  /* 字体大小 */
+  font-weight: 600;
+  /* 字体粗细 */
+  margin-bottom: 10px;
+  /* 底部外边距 */
+  color: #333;
+  /* 深灰色 */
+}
+
+/* 网站描述样式 */
+.bookmark-description {
+  color: #666;
+  /* 中灰色 */
+  font-size: 0.9rem;
+  /* 字体大小 */
+  line-height: 1.5;
+  /* 行高，提高可读性 */
+  margin-bottom: 15px;
+  /* 底部外边距 */
+  flex: 1;
+  /* 占据剩余空间 */
+  overflow: hidden;
+}
+
+/* 网站元信息容器样式 */
+.bookmark-meta {
+  display: flex;
+  /* 弹性布局 */
+  justify-content: space-between;
+  /* 两端对齐 */
+  align-items: center;
+  /* 垂直居中 */
+  margin-bottom: 15px;
+  /* 底部外边距 */
+}
+
+/* 网站分类标签样式 */
+.bookmark-category {
+  /* 渐变背景 */
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  /* 白色文字 */
+  padding: 4px 12px;
+  /* 内边距 */
+  border-radius: 15px;
+  /* 圆角 */
+  font-size: 0.8rem;
+  /* 字体大小 */
+  font-weight: 500;
+  /* 字体粗细 */
+}
+
+/* 网站链接样式 */
+.bookmark-link {
+  display: inline-flex;
+  /* 内联弹性布局 */
+  align-items: center;
+  /* 垂直居中 */
+  gap: 8px;
+  /* 元素间距 */
+  color: #667eea;
+  /* 蓝色文字 */
+  text-decoration: none;
+  /* 移除下划线 */
+  font-weight: 500;
+  /* 字体粗细 */
+  transition: color 0.3s ease;
+  /* 颜色过渡动画 */
+}
+
+/* 链接悬停效果 */
+.bookmark-link:hover {
+  color: #764ba2;
+  /* 紫色 */
+}
+
+/* footer选择器：页脚样式 */
+footer {
+  /* 内边距：1rem */
+  padding: 1rem;
+
+  /* 字体大小：0.9rem（较小） */
+  font-size: 0.9rem;
+
+  /* 文字颜色：浅灰色 */
+  color: #999;
+}
+
+/* 无搜索结果提示样式 */
+.no-results {
+  text-align: center;
+  /* 文字居中 */
+  color: white;
+  /* 白色文字 */
+  font-size: 1.2rem;
+  /* 字体大小 */
+  margin: 40px 0;
+  /* 上下外边距 */
+  opacity: 0.8;
+  /* 透明度 */
+}
+
+/* 响应式设计 - 针对移动设备的样式调整 */
+@media (max-width: 768px) {
+  .sort-controls {
+    padding: 15px;
+  }
+
+  .sort-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+    margin: 3px 5px;
+  }
+
+  .container {
+    padding: 15px;
+    /* 减少内边距 */
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    /* 减小标题字体 */
+  }
+
+  .bookmarks-grid {
+    /* 在小屏幕上使用单列布局 */
+    grid-template-columns: 1fr;
+  }
+
+  .filter-tabs {
+    justify-content: flex-start;
+    /* 左对齐 */
+    overflow-x: auto;
+    /* 水平滚动 */
+    padding-bottom: 10px;
+    /* 底部内边距 */
+  }
+}

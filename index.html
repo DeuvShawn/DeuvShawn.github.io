@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <!-- 文档类型声明，告诉浏览器这是HTML5文档 -->
+  <!-- 设置页面语言为中文 -->
+
+  <!-- 字符编码设置为UTF-8，支持中文等多种字符 -->
+  <meta charset="UTF-8">
+
+  <!-- 响应式设计的视口设置，确保在移动设备上正常显示 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 页面标题，显示在浏览器标签栏 -->
+  <title>李长锋的网页收藏</title>
+
+  <!-- 引入外部CSS样式表 -->
+  <link rel="stylesheet" href="styles/main.css">
+
+  <style></style>
+
+</head>
+
+<body>
+  <!-- 页面主容器 -->
+  <div class="container">
+    <!-- 页面头部 -->
+    <div class="header">
+      <h1>李长锋的网页收藏</h1>
+      <p>精心整理的优质网站合集</p>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <!-- 搜索输入框，id用于JavaScript操作 -->
+      <input type="text" id="searchInput" placeholder="搜索收藏的网站...">
+    </div>
+
+    <!-- 排序控制面板 -->
+    <div class="sort-controls">
+      <div class="sort-title">排序方式：</div>
+      <button class="sort-btn active" onclick="sortBookmarkCards('favicon', 'asc')" data-sort="favicon-asc">
+        🔤 按字母 A-Z
+      </button>
+      <button class="sort-btn" onclick="sortBookmarkCards('favicon', 'desc')" data-sort="favicon-desc">
+        🔤 按字母 Z-A
+      </button>
+      <button class="sort-btn" onclick="sortBookmarkCards('category', 'asc')" data-sort="category-asc">
+        🏷️ 按分类排序
+      </button>
+    </div>
+
+    <!-- 分类筛选标签 -->
+    <div class="filter-tabs">
+      <!-- 每个按钮都有data-category属性，用于JavaScript筛选 -->
+      <button class="filter-tab active" data-category="all">🌍 全部</button>
+      <button class="filter-tab" data-category="工具">🔧 工具</button>
+      <button class="filter-tab" data-category="设计">🎨 设计</button>
+      <button class="filter-tab" data-category="学习">📖 学习</button>
+      <button class="filter-tab" data-category="娱乐">🎮 娱乐</button>
+      <button class="filter-tab" data-category="技术">💻 技术</button>
+    </div>
+
+    <!-- 收藏网站网格容器 -->
+    <div class="bookmarks-grid" id="bookmarksGrid">
+      <!-- 示例收藏网站卡片 -->
+      <!-- 每个卡片都有data-category属性，用于分类筛选 -->
+
+      <!-- C++Learning卡片 -->
+      <div class="bookmark-card" data-category="学习">
+        <div class="bookmark-favicon">C</div>
+        <div class="bookmark-title">C++ Learning</div>
+        <div class="bookmark-description">很牛逼的C++学习网站，包含超好用的VSCode配置。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">学习</span>
+        </div>
+        <a href="https://question-board.readthedocs.io" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- Godbolt卡片 -->
+      <div class="bookmark-card" data-category="学习">
+        <div class="bookmark-favicon">G</div>
+        <div class="bookmark-title">Godbolt</div>
+        <div class="bookmark-description">very好用的C++在线编译。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">学习</span>
+        </div>
+        <a href="https://godbolt.org/" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- SeuCseWeb卡片 -->
+      <div class="bookmark-card" data-category="工具">
+        <div class="bookmark-favicon">S</div>
+        <div class="bookmark-title">SeuCseWeb</div>
+        <div class="bookmark-description">东大计软智常用网址。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">工具</span>
+        </div>
+        <a href="https://seucseweb.github.io/" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- Canva卡片 -->
+      <div class="bookmark-card" data-category="设计">
+        <div class="bookmark-favicon">C</div>
+        <div class="bookmark-title">Canva</div>
+        <div class="bookmark-description">好用的在线设计网站。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">设计</span>
+        </div>
+        <a href="https://www.canva.cn" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- Java卡片 -->
+      <div class="bookmark-card" data-category="学习">
+        <div class="bookmark-favicon">J</div>
+        <div class="bookmark-title">JavaCourse</div>
+        <div class="bookmark-description">最喜欢的老师的Java课程网站。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">学习</span>
+        </div>
+        <a href="http://wds.ac.cn/java/" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- Devv Search卡片 -->
+      <div class="bookmark-card" data-category="工具">
+        <div class="bookmark-favicon">D</div>
+        <div class="bookmark-title">Devv Search</div>
+        <div class="bookmark-description">权威的工具，最懂程序员的新一代 AI 搜索引擎。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">工具</span>
+        </div>
+        <a href="https://devv.ai/zh/search" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- Claude卡片 -->
+      <div class="bookmark-card" data-category="工具">
+        <div class="bookmark-favicon">C</div>
+        <div class="bookmark-title">Claude</div>
+        <div class="bookmark-description">个人认为目前最厉害的AI。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">工具</span>
+        </div>
+        <a href="https://claude.ai" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- Pexels卡片 -->
+      <div class="bookmark-card" data-category="设计">
+        <div class="bookmark-favicon">P</div>
+        <div class="bookmark-title">Pexels</div>
+        <div class="bookmark-description">免费图片素材库。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">设计</span>
+        </div>
+        <a href="https://www.pexels.com/zh-cn/" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- NotebookLM卡片 -->
+      <div class="bookmark-card" data-category="工具">
+        <div class="bookmark-favicon">N</div>
+        <div class="bookmark-title">NotebookLM</div>
+        <div class="bookmark-description">非常好用的AI文档笔记分析？助我软件工程86分。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">工具</span>
+        </div>
+        <a href="https://notebooklm.google.com" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- Interactive Linear Algebra卡片 -->
+      <div class="bookmark-card" data-category="学习">
+        <div class="bookmark-favicon">I</div>
+        <div class="bookmark-title">Interactive Linear Algebra</div>
+        <div class="bookmark-description">很牛逼的线性代数教材。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">学习</span>
+        </div>
+        <a href="https://textbooks.math.gatech.edu/ila/overview.html" class="bookmark-link" target="_blank">
+          访问网站 →
+        </a>
+      </div>
+
+      <!-- OS卡片 -->
+      <div class="bookmark-card" data-category="学习">
+        <div class="bookmark-favicon">O</div>
+        <div class="bookmark-title">OS实验</div>
+        <div class="bookmark-description">折磨了我一年的操作系统实验。</div>
+        <div class="bookmark-meta">
+          <span class="bookmark-category">学习</span>
+        </div>
+        <a href="https://blog.csdn.net/zxncxy/article/details/115190538?darkschemeovr=1" class="bookmark-link"
+          target="_blank">
+          访问网站 →
+        </a>
+      </div>
+    </div>
+
+    <!-- 无搜索结果提示，默认隐藏 -->
+    <div class="no-results" id="noResults" style="display: none;">
+      没有找到匹配的收藏网站 😔
+    </div>
+
+    <footer>
+      Copyright &copy; 2025 李长锋. All rights reserved.
+    </footer>
+
+  </div>
+
+  <script></script>
+
+<script src="functions/main.js"></script>
+
+</body>
+
+</html>
