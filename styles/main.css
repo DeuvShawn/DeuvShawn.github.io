@@ -214,11 +214,6 @@ body {
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-.sort-btn:active {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
-}
-
 .sort-btn.active {
   background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
   box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
@@ -256,14 +251,6 @@ body {
   flex-direction: column;
   height: 280px;
   /* 固定高度 */
-}
-
-/*卡片悬停效果*/
-.bookmark-card:hover {
-  transform: translateY(-5px);
-  /* 向上移动5px */
-  /* 更强烈的阴影效果 */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* 排序动画状态 */

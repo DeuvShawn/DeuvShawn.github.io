@@ -16,6 +16,8 @@ const searchBar = document.querySelector('.search-bar');
 // 全局变量，用于跟踪当前的筛选状态
 let currentFilter = 'all';      // 当前选中的分类
 let currentSearch = '';         // 当前的搜索关键词
+let currentSortBy = 'favicon';  // 当前排序字段
+let currentSortOrder = 'asc';   // 当前排序顺序
 
 // 添加聚焦事件监听器 - 点击输入框时展开
 searchInput.addEventListener('focus', function () {
@@ -32,6 +34,10 @@ searchInput.addEventListener('blur', function () {
 
 // 排序函数
 function sortBookmarkCards(sortBy = 'favicon', order = 'asc') {
+  // 更新全局排序状态
+  currentSortBy = sortBy;
+  currentSortOrder = order;
+
   const cards = Array.from(bookmarksGrid.querySelectorAll('.bookmark-card'));
 
   // 更新按钮状态
@@ -44,16 +50,16 @@ function sortBookmarkCards(sortBy = 'favicon', order = 'asc') {
 
       switch (sortBy) {
         case 'favicon':
-          textA = a.querySelector('.bookmark-favicon').textContent.trim();
-          textB = b.querySelector('.bookmark-favicon').textContent.trim();
+          textA = a.querySelector('.bookmark-title').textContent.trim();
+          textB = b.querySelector('.bookmark-title').textContent.trim();
           break;
         case 'category':
           textA = a.querySelector('.bookmark-category').textContent.trim();
           textB = b.querySelector('.bookmark-category').textContent.trim();
           break;
         default:
-          textA = a.querySelector('.bookmark-favicon').textContent.trim();
-          textB = b.querySelector('.bookmark-favicon').textContent.trim();
+          textA = a.querySelector('.bookmark-title').textContent.trim();
+          textB = b.querySelector('.bookmark-title').textContent.trim();
       }
 
       const comparison = textA.localeCompare(textB, 'zh-CN', { numeric: true });
@@ -134,37 +140,93 @@ filterTabs.forEach(tab => {
 // 筛选函数 - 根据搜索关键词和分类筛选来显示/隐藏卡片
 function filterBookmarks() {
   let visibleCount = 0;  // 记录可见卡片数量
-
-  // 遍历每个收藏卡片
+  const visibleCards = Array.from(bookmarksGrid.querySelectorAll('.bookmark-card'));
   bookmarkCards.forEach(card => {
-    // 获取卡片的标题和描述文本
-    // querySelector()获取第一个匹配的子元素
-    const title = card.querySelector('.bookmark-title').textContent.toLowerCase();
-    const description = card.querySelector('.bookmark-description').textContent.toLowerCase();
-    const category = card.dataset.category;
-
-    // 检查是否匹配搜索关键词
-    // includes()检查字符串是否包含指定的子字符串
-    const matchesSearch = title.includes(currentSearch) || description.includes(currentSearch);
-
-    // 检查是否匹配分类筛选
-    const matchesCategory = currentFilter === 'all' || category === currentFilter;
-
-    // 如果同时匹配搜索和分类条件，则显示卡片
-    if (matchesSearch && matchesCategory) {
-      card.style.display = 'block';  // 显示卡片
-      visibleCount++;                // 增加可见卡片计数
-    } else {
-      card.style.display = 'none';   // 隐藏卡片
-    }
+    card.style.display = 'block';  // 重置所有卡片为显示状态
   });
 
-  // 根据可见卡片数量决定是否显示"无结果"提示
-  if (visibleCount === 0) {
-    noResults.style.display = 'block';   // 显示无结果提示
-  } else {
-    noResults.style.display = 'none';    // 隐藏无结果提示
-  }
+  // 延迟执行筛选逻辑，等待淡出动画
+  setTimeout(() => {
+    // 遍历每个收藏卡片
+    bookmarkCards.forEach(card => {
+      // 获取卡片的标题和描述文本
+      // querySelector()获取第一个匹配的子元素
+      const title = card.querySelector('.bookmark-title').textContent.toLowerCase();
+      const description = card.querySelector('.bookmark-description').textContent.toLowerCase();
+      const category = card.dataset.category;
+
+      // 检查是否匹配搜索关键词
+      // includes()检查字符串是否包含指定的子字符串
+      const matchesSearch = title.includes(currentSearch) || description.includes(currentSearch);
+
+      // 检查是否匹配分类筛选
+      const matchesCategory = currentFilter === 'all' || category === currentFilter;
+
+
+      // 如果同时匹配搜索和分类条件，则显示卡片
+      if (matchesSearch && matchesCategory) {
+        visibleCards.push(card);  // 添加到可见卡片数组
+        visibleCount++;           // 增加可见卡片计数
+      } else {
+        card.style.display = 'none';   // 隐藏卡片
+      }
+    });
+
+    // 对筛选后的可见卡片按照当前排序状态进行排序
+    visibleCards.sort((a, b) => {
+      let textA, textB;
+
+      switch (currentSortBy) {
+        case 'favicon':
+          textA = a.querySelector('.bookmark-title').textContent.trim();
+          textB = b.querySelector('.bookmark-title').textContent.trim();
+          break;
+        case 'category':
+          textA = a.querySelector('.bookmark-category').textContent.trim();
+          textB = b.querySelector('.bookmark-category').textContent.trim();
+          break;
+        default:
+          textA = a.querySelector('.bookmark-title').textContent.trim();
+          textB = b.querySelector('.bookmark-title').textContent.trim();
+      }
+
+      const comparison = textA.localeCompare(textB, 'zh-CN', { numeric: true });
+      return currentSortOrder === 'asc' ? comparison : -comparison;
+    });
+
+
+    // 清空容器
+    bookmarksGrid.innerHTML = '';
+
+    // 为可见卡片添加进场动画
+    visibleCards.forEach((card, index) => {
+      // card.style.display = 'block';  // 显示卡片
+      // card.classList.add('sorting-enter');
+
+      card.classList.remove('sorting');
+      card.classList.add('sorting-enter');
+      bookmarksGrid.appendChild(card);
+
+
+      // 延迟添加动画效果
+      setTimeout(() => {
+        card.classList.remove('sorting-enter');
+        card.classList.add('sorting-enter-active');
+      }, index * 50);
+
+      // 清理动画类
+      setTimeout(() => {
+        card.classList.remove('sorting-enter-active');
+      }, 500 + index * 50);
+    });
+
+    // 根据可见卡片数量决定是否显示"无结果"提示
+    if (visibleCount === 0) {
+      noResults.style.display = 'block';   // 显示无结果提示
+    } else {
+      noResults.style.display = 'none';    // 隐藏无结果提示
+    }
+  });
 }
 
 // 为收藏卡片添加鼠标悬停效果
